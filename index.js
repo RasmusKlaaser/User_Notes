@@ -6,6 +6,9 @@ const User = require('./models/user')
 const session = require('express-session')
 User.sync()
 
+const Note = require('./models/notes')
+Note.sync();
+
 const app = express()
 
 app.use(sessions({
@@ -19,8 +22,10 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 const userRoutes = require('./routes/users')
-
 app.use('/users', userRoutes)
+
+const notesRoutes = require('./routes/notes')
+app.use('/notes', userRoutes)
 
 app.listen(3012, () => {
     console.log('server is connected')
